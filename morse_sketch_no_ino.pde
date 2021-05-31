@@ -26,10 +26,10 @@ void draw () {
   //Publish the changes of state through MQTT - 
   if (lightOn!=plightOn) {
     if (lightOn==true) {
-      client.publish("/morse", "1");//Or is it off or do I need to create conditional?
+     // client.publish("/morse", "1");//Or is it off or do I need to create conditional?
       //println("1");
     } else {
-      client.publish("/morse", "0");
+     // client.publish("/morse", "0");
       //println("0");
     }
   }
@@ -111,3 +111,4 @@ void messageReceived(String topic, byte[] payload) {
 
 //ACI ES ON HAS DE FICAR LA LLUM QUE S'IL·LUMINA AMB ELS MISSATGES DE TEXT 
 //ENVIATS DESDE MQTT QUE ESCRIGUEN 1
+
