@@ -28,22 +28,27 @@ void draw () {
     if (lightOn==true) {
       client.publish("/morse", "1");//Or is it off or do I need to create conditional?
       //println("1");
+      //myPort.write('1');
     } else {
       client.publish("/morse", "0");
       //println("0");
+      //myPort.write('0');
     }
   }
   plightOn = lightOn;
 
-//  if (lightOn) {
-//    fill(25, 79, 99);
-//    rect(0, 0, width/2, height);
-//    //send mqtt message here
-//  } else {
-//    //and here
-//    fill(25);
-//    rect(0, 0, width/2, height);
-//  }
+    if (lightOn) {
+      fill(25, 79, 99);
+      rect(0, 0, width/2, height);
+      //myPort.write('1');
+      //send mqtt message here
+    } else {
+      //and here
+      fill(25);
+      rect(0, 0, width/2, height);
+      //myPort.write('0');
+      
+    }
 }
 //void mousePressed() {
 //  if (mouseX > width/2) {
@@ -77,15 +82,17 @@ void serialEvent (Serial myPort) {
       if (inString.equals("0")) {
         //fill(100);
         //rect(width/2, 0, width, height);
-        client.publish("/morse", "0");
+        //client.publish("/morse", "0");
         myPort.write('0');
+        lightOn = false;
       } else if (inString.equals("1")) {
-        //fill(125, 79, 199);
+        //fill(100);
         //rect(width/2, 0, width, height);
-        client.publish("/morse", "1");
+        //client.publish("/morse", "1");
         myPort.write('1');
+        lightOn = true;
       }
-      // println("serial event",inString);
+      //println("serial event",inString);
     }
   }
 }
@@ -102,16 +109,14 @@ void messageReceived(String topic, byte[] payload) {
   if (topic.equals("/morse")) {
     if (string.equals("0")) {
       println("0");
-      //fill(25);
-      //rect(0, 0, width/2, height);  
+      fill(25);
+      rect(0, 0, width/2, height);  
       lightOn = false;
-      myPort.write('0');
     } else if (string.equals("1")) {
       println("1");
-      //fill(25, 79, 99);
-      //rect(0, 0, width/2, height);
+      fill(25, 79, 99);
+      rect(0, 0, width/2, height);
       lightOn = true;
-      myPort.write('1');
     }
   }
 }
